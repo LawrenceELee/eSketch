@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">eSketch</string>
-    <string name="action_settings">Settings</string>
-
     <string name="button_erase">Erase Image</string>
     <string name="button_set_color">Set Color</string>
     <string name="button_set_line_width">Set Line Width</string>
