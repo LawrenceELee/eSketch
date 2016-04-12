@@ -19,7 +19,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
 /**
- * A placeholder fragment containing a simple view.
+ * fragment containing a eSketch view.
  */
 public class MainActivityFragment extends Fragment {
 
@@ -29,7 +29,7 @@ public class MainActivityFragment extends Fragment {
     // used to identify the request for using external storage
     private static final int SAVE_IMAGE_PERMISSION_REQUEST_CODE = 1;
 
-    private eSketchView mESketchView;   // reference to data/model
+    private eSketchView mESketchView;   // reference to eSketch View object
     private double acceleration;
     private double currentAcceleration;
     private double lastAcceleration;
@@ -158,9 +158,6 @@ public class MainActivityFragment extends Fragment {
             case R.id.save:
                 saveImage();
                 return true;
-            case R.id.print:
-                mESketchView.printImage();
-                return true;
             // "return true" consumes the menu event
         }
 
@@ -227,8 +224,8 @@ public class MainActivityFragment extends Fragment {
         }
     }
 
-    // getter for data/model object
-    public eSketchView getESketchView(){
+    // getter for View object
+    public eSketchView getSketchView(){
         return mESketchView;
     }
 
