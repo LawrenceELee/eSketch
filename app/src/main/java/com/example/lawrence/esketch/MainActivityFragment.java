@@ -1,5 +1,6 @@
 package com.example.lawrence.esketch;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -221,7 +222,9 @@ public class MainActivityFragment extends Fragment {
                 if( grantResults[0] == PackageManager.PERMISSION_GRANTED ){
                     mESketchView.saveImage();
                 }
-                return;
+                break;
+            default:
+                break;
         }
     }
 

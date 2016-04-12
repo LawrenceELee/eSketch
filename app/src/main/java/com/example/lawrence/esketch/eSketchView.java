@@ -1,9 +1,6 @@
 package com.example.lawrence.esketch;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.os.Environment;
 import android.util.AttributeSet;
 import android.view.View;
@@ -16,7 +13,6 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.provider.MediaStore;
-import android.support.v4.print.PrintHelper;
 import android.widget.Toast;
 
 import java.io.File;
@@ -175,7 +171,7 @@ public class eSketchView extends View {
                 float diffX = Math.abs(newX - point.x);
                 float diffY = Math.abs(newY - point.y);
 
-                // if distance is significatn enough to matter
+                // if distance is significant enough to matter
                 if( diffX >= TOUCH_TOLERANCE || diffY >= TOUCH_TOLERANCE ){
                     path.quadTo(point.x, point.y, (newX + point.x)/2, (newY + point.y)/2);
 
