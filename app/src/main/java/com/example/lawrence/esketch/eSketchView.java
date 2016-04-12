@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.os.Environment;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.Gravity;
@@ -18,6 +19,7 @@ import android.provider.MediaStore;
 import android.support.v4.print.PrintHelper;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -194,8 +196,10 @@ public class eSketchView extends View {
 
     // save the current image to the Gallery
     public void saveImage(){
+        fixMediaDir(); // fixes bug in Android 4.4
+
         // name file eSketch + timestamp
-        final String filename = "eSketch" + System.currentTimeMillis();
+        final String filename = "eSketch" + System.currentTimeMillis() + ".jpg";
 
         // insert image on the device
         String location = MediaStore.Images.Media.insertImage(
@@ -212,6 +216,18 @@ public class eSketchView extends View {
             Toast msg = Toast.makeText( getContext(), R.string.message_error_saving, Toast.LENGTH_SHORT);
             msg.setGravity(Gravity.CENTER, msg.getXOffset()/2, msg.getYOffset()/2);
             msg.show();
+        }
+    }
+
+    // this fixes a bug in Android 4.4 (https://code.google.com/p/android/issues/detail?id=75447)
+    // where it happens when the user hasn't taken a photo on the device before (i.e. gallery is empty and hasn't been initialized.)
+    void fixMediaDir(){
+        File sdcard = Environment.getExternalStorageDirectory();
+        if (sdcard != null) {
+            File mediaDir = new File(sdcard, "DCIM/Camera");
+            if (!mediaDir.exists()) {
+                mediaDir.mkdirs();
+            }
         }
     }
 
