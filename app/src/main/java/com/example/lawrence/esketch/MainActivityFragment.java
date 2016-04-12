@@ -23,7 +23,7 @@ import android.hardware.SensorManager;
  */
 public class MainActivityFragment extends Fragment {
 
-    // min threshold accel sensor to deteremine if a shake event took place
+    // min threshold accel sensor to determine if a shake event took place
     private static final int ACCELERATION_THRESHOLD = 100000;
 
     // used to identify the request for using external storage

@@ -27,7 +27,7 @@ import java.util.Map;
 public class eSketchView extends View {
 
     // used to determine whether user moved a finger enough to draw again
-    private static final float TOUCH_TOLERANCE = 10;
+    private static final float TOUCH_TOLERANCE = 5;
 
     private Bitmap mBitmap; // drawing surface for displaying or saving
     private Canvas mCanvas; // used to draw on bitmap

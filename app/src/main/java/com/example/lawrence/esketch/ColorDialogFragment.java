@@ -16,9 +16,9 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
  */
 public class ColorDialogFragment extends DialogFragment{
     private SeekBar mAlphaSeekBar;
+    private SeekBar mRedSeekBar;
     private SeekBar mGreenSeekBar;
     private SeekBar mBlueSeekBar;
-    private SeekBar mRedSeekBar;
     private View mColorView;        // area to view a sample of the color from seekbar combos
     private int mColor;
 
@@ -28,8 +28,7 @@ public class ColorDialogFragment extends DialogFragment{
         // create dialog using dialog builder
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // inflate xml into code
-        View colorDialogView = getActivity()
-                .getLayoutInflater().inflate(R.layout.fragment_color, null);
+        View colorDialogView = getActivity().getLayoutInflater().inflate(R.layout.fragment_color, null);
         // add GUI to dialog
         builder.setView(colorDialogView);
 
@@ -43,23 +42,37 @@ public class ColorDialogFragment extends DialogFragment{
         mBlueSeekBar = (SeekBar) colorDialogView.findViewById(R.id.blueSeekBar);
         mColorView = colorDialogView.findViewById(R.id.colorView);
 
+        // register event listeners
+        mAlphaSeekBar.setOnSeekBarChangeListener(colorChangedListener);
+        mRedSeekBar.setOnSeekBarChangeListener(colorChangedListener);
+        mGreenSeekBar.setOnSeekBarChangeListener(colorChangedListener);
+        mBlueSeekBar.setOnSeekBarChangeListener(colorChangedListener);
+
         // use current drawing color to set init seekbar vals
         final eSketchView sketchView = getSketchFragment().getSketchView();
         mColor = sketchView.getDrawingsColor();
-        mBlueSeekBar.setProgress(Color.blue(mColor));
-        mGreenSeekBar.setProgress(Color.green(mColor));
-        mRedSeekBar.setProgress(Color.red(mColor));
         mAlphaSeekBar.setProgress(Color.alpha(mColor));
+        mRedSeekBar.setProgress(Color.red(mColor));
+        mGreenSeekBar.setProgress(Color.green(mColor));
+        mBlueSeekBar.setProgress(Color.blue(mColor));
 
         // button to set color
+        builder.setPositiveButton(
+                R.string.button_set_color,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        sketchView.setDrawingColor(mColor);
+                    }
+                }
+        );
 
         return builder.create();
     }
 
     // get ref to MainActivityFragment
     private MainActivityFragment getSketchFragment(){
-        return (MainActivityFragment) getFragmentManager()
-                .findFragmentById(R.id.esketchFragment);
+        return (MainActivityFragment) getFragmentManager().findFragmentById(R.id.esketchFragment);
     }
 
     // tell MainActivityFragment that dialog is now displayed
@@ -93,6 +106,7 @@ public class ColorDialogFragment extends DialogFragment{
                         mBlueSeekBar.getProgress()
                 );
             }
+            mColorView.setBackgroundColor(mColor);
         }
 
         @Override
